@@ -24,12 +24,18 @@ let notes = [
 //     response.setHeader('content-type', 'appliaction/json');
 //     response.end(JSON.stringify(notes));
 // });
-
+ // endpoint to get the / route
 app.get('/', (request, response) => {
-    response.send('hello world');
+    response.send('<h1>web app</h1>');
 })
 
+// endpoint to get all the notes
+app.get('/api/notes', (request, response) => {
+    response.json(notes);
+})
+
+HOSTNAME = '168.172.50.1'
 const PORT = 3001;
 app.listen(PORT, () => {
-    console.log(`server running on port ${PORT}`)
+    console.log(`server running at http://${HOSTNAME}:${PORT}`)
 });
