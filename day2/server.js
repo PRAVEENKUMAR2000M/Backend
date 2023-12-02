@@ -1,4 +1,5 @@
-const http = require('http');
+const express = require('express');
+const app = express()
 
 let notes = [
     {
@@ -18,11 +19,15 @@ let notes = [
     }
 ];
 
-const app = http.createServer((request, response) => {
-    response.stateCode = 200;
-    response.setHeader('content-type', 'appliaction/json');
-    response.end(JSON.stringify(notes));
-});
+// const app = http.createServer((request, response) => {
+//     response.stateCode = 200;
+//     response.setHeader('content-type', 'appliaction/json');
+//     response.end(JSON.stringify(notes));
+// });
+
+app.get('/', (request, response) => {
+    response.send('hello world');
+})
 
 const PORT = 3001;
 app.listen(PORT, () => {
