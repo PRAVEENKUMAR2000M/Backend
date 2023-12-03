@@ -43,24 +43,25 @@ app.get('/api/notes/:id', (request, response) => {
     if (note) {
         response.status(200).json(note)
     } else {
-        response.status(404).json({ message: 'id does not exist'})
+        response.status(404).json({ message: 'id does not exist' })
     }
 })
 
 //endpoint to create a new note
 app.post('/api/notes', (request, response) => {
     notes = notes.concat(request.body)
-    response.status(201).json({message: 'note created successfully'})
+    response.status(201).json({ message: 'note created successfully' })
 })
 
 //endpoint to delete a note identified by id
-app.delete('/api/notes', (request, response) => {
+app.delete('/api/notes/:id', (request, response) => {
+    const id = request.params.id
     const note = notes.find(note => note.id == id)
     notes = notes.filter(note => note.id != id)
     if (note) {
         response.status(204).json(note)
     } else {
-        response.status(404).json({message: 'id does not exist'})
+        response.status(404).json({ message: 'id does not exist' })
     }
 })
 
