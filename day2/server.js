@@ -24,7 +24,7 @@ let notes = [
 //     response.setHeader('content-type', 'appliaction/json');
 //     response.end(JSON.stringify(notes));
 // });
- // endpoint to get the / route
+// endpoint to get the / route
 app.get('/', (request, response) => {
     response.send('<h1>web app</h1>');
 })
@@ -34,8 +34,36 @@ app.get('/api/notes', (request, response) => {
     response.json(notes);
 })
 
+//endpoint will fetch a single note
+app.get('/api/notes/:id', (request, response) => {
+    // console.log(request.params);
+    const id = request.params.id
+    const note = notes.find(note => note.id == id);
+    if (note) {
+        response.status(200).json(note)
+    } else {
+        response.status(404).json({ message: 'id does not exist'})
+    }
+})
+
 HOSTNAME = '168.172.50.1'
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`server running at http://${HOSTNAME}:${PORT}`)
 });
+
+
+
+
+/*
+    endpoints
+
+    URL                        Request Type               Functionality
+    /api/notes                 GET                        fetch all notes
+    /api/notes/:id             GET                        fetch a single note
+    /api/notes                 POST                       add a new note
+    /api/notes/:id             PUT                        replace a note
+    /api/notes/:id             DELETE                     delete a note
+    /api/notes/:id             PATCH                      update a note
+
+*/
