@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express()
-
+//midleware
+app.use(express.json());
 let notes = [
     {
         id: 1,
@@ -44,6 +45,12 @@ app.get('/api/notes/:id', (request, response) => {
     } else {
         response.status(404).json({ message: 'id does not exist'})
     }
+})
+
+//endpoint to create a new note
+app.post('/api/notes', (request, response) => {
+    notes = notes.concat(request.body)
+    response.status(201).json({message: 'note created successfully'})
 })
 
 HOSTNAME = '168.172.50.1'
