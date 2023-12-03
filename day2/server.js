@@ -65,6 +65,40 @@ app.delete('/api/notes/:id', (request, response) => {
     }
 })
 
+//endpoint to replace the entire note identified by id with the request data
+
+// app.put('/api/notes/:id', (request, response) => {
+//     const id = request.params.id
+
+//     const noteToReplace = request.body
+//     const note = notes.find(note => note.id == id)
+
+//      notes = notes.map(note => note.id == id ? noteToReplace : note);
+
+//     if (note) {
+//         response.status(200).json({ message: 'note replaced successfully' })
+//     } else {
+//         response.status(404).json({ message: 'id does not exist' })
+//     }
+// })
+
+app.put('/api/notes/:id', (request, response) => {
+    // get the id from the params
+    const id = request.params.id;
+
+    const noteToReplace = request.body;
+
+    const note = notes.find(note => note.id == id);
+
+    notes = notes.map(note => note.id == id ? noteToReplace : note);
+
+    if (note) {
+        response.status(200).json({ message: 'note replaced' });
+    } else {
+        response.status(404).json({ message: 'id does not exists' });
+    }
+});
+
 HOSTNAME = '168.172.50.1'
 const PORT = 3001;
 app.listen(PORT, () => {
